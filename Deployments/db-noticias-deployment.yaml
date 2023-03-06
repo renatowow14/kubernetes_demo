@@ -16,7 +16,7 @@ spec:
             - containerPort: 3306
           envFrom:
             - configMapRef:
-              name: db-configmap
+                name: db-configmap
   selector:
     matchLabels:
       app: db-noticias
