@@ -1,0 +1,29 @@
+# Define a versao da API
+apiVersion: v1
+# Define o nome do objeto: PersistentVolume (PV)
+kind: PersistentVolume
+# Define os Metadados do objeto
+metadata:
+  # Define o nome do objeto
+  name: my-local-pv
+  # Define a label associada a este PV
+  labels:
+    # Label usada para vincular o PVC a este PV
+    type: local-pv
+# Define as especificacoes deste objeto
+spec:
+  # Define o tamanho do armazenamento
+  capacity:
+    storage: 10Gi
+  # Define o modo do PV: Block e FileSystem
+  volumeMode: Filesystem
+  # Define o modo de acesso: RWO, ROX, RWX, RWOP
+  accessModes:
+    - ReadWriteOnce
+  # Define a politica de recuperacao: Recycle, Retain e Delete
+  persistentVolumeReclaimPolicy: Retain
+  # Define o tipo de volume usado: hostPath
+  hostPath:
+    path: "/data/k8svolume"
+  # Define o nome da StorageClass usada para vincular o PV ao PVC
+  storageClassName: manual
