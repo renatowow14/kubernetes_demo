@@ -18,7 +18,7 @@ spec:
           mountPath: /usr/share/nginx/html
   # Define o volume a ser usado no POD
   volumes:
-    # Define o nome do volume
+    # Define o nome do volume faz referecia ao volumeMounts do container
     - name: www-storage
       # Define o PVC a ser montado no volume do POD
       persistentVolumeClaim:
