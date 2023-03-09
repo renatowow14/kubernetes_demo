@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: www
+  labels:
+    name: www
+spec:
+  containers:
+    - name: www
+      image: nginx:alpine
+      ports:
+        - containerPort: 80
+          name: www
+          protocol: TCP
+      resources: {}
+      volumeMounts:
+        - name: www-storage
+          mountPath: /usr/share/nginx/html
+  # Define o volume a ser usado no POD
+  volumes:
+    # Define o nome do volume
+    - name: www-storage
+      # Define o PVC a ser montado no volume do POD
+      persistentVolumeClaim:
+        # Define a claimName: Flag definida no Label do arquivo usada para vincular o PVC ao PV
+        claimName: my-local-pvc
