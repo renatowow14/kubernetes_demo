@@ -3,7 +3,6 @@ kind: StatefulSet
 metadata:
   name: sistema-noticias-statefulset
 spec:
-  replicas: 1
   template:
     metadata:
       labels:
@@ -30,6 +29,7 @@ spec:
         - name: sessao
           persistentVolumeClaim:
             claimName: sessao-pvc
+    replicas: 1         
   selector:
     matchLabels:
       app: sistema-noticias
