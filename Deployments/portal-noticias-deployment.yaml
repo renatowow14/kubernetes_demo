@@ -24,6 +24,13 @@ spec:
             periodSeconds: 10
             failureThreshold: 3
             initialDelaySeconds: 20
+          redinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            periodSeconds: 10
+            failureThreshold: 5
+            initialDelaySeconds: 3
   selector:
     matchLabels:
       app: portal-noticias
