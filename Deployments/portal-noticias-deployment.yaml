@@ -24,7 +24,7 @@ spec:
             periodSeconds: 10
             failureThreshold: 3
             initialDelaySeconds: 20
-          redinessProbe:
+          readinessProbe:
             httpGet:
               path: /
               port: 80

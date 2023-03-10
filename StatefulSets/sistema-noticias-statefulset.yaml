@@ -29,7 +29,7 @@ spec:
             periodSeconds: 10
             failureThreshold: 3
             initialDelaySeconds: 20
-          redinessProbe:
+          readinessProbe:
             httpGet:
               path: /inserir_noticias.php
               port: 80
