@@ -27,4 +27,4 @@ spec:
   selector:
     matchLabels:
       app: portal-noticias
-  replicas: 4
+  replicas: 1
