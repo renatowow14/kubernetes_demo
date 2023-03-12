@@ -17,6 +17,16 @@ spec:
           envFrom:
             - configMapRef:
                 name: db-configmap
+          readinessProbe:
+            tcpSocket:
+              port: 3306
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 3306
+            initialDelaySeconds: 15
+            periodSeconds: 20      
   selector:
     matchLabels:
       app: db-noticias
