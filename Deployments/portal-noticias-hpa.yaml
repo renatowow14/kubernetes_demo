@@ -15,4 +15,4 @@ spec:
         name: cpu
         target:
           type: Utilization
-          avarageUtilization: 50
+          averageUtilization: 50
