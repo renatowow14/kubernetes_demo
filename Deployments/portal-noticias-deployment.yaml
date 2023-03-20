@@ -1,8 +1,26 @@
+# Define o PVC que vai ser vinculado ao storageclass standard (default) que ja vem no cluster,
+# O mesmo ira criar um PV e associar ao PVC logo em seguida associar aos PODS do deployment
+# Por padrao o minikube ja vem com um storageclass configurado ao iniciar o cluster.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-pv-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: portal-noticias-deployment
 spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: portal-noticias
   template:
     metadata:
       name: portal-noticias
@@ -12,8 +30,12 @@ spec:
       containers:
         - name: portal-noticias-container
           image: aluracursos/portal-noticias:1
+          volumeMounts:
+            - mountPath: "/storage"
+              name: my-volume
           ports:
             - containerPort: 80
+              name: "http-server"
           envFrom:
             - configMapRef:
                 name: portal-configmap
@@ -34,7 +56,7 @@ spec:
           resources:
             requests:
               cpu: 10m
-  selector:
-    matchLabels:
-      app: portal-noticias
-  replicas: 3
+      volumes:
+        - name: my-volume
+          persistentVolumeClaim:
+            claimName: my-pv-claim
