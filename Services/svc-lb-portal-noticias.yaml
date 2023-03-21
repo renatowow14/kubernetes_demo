@@ -1,0 +1,18 @@
+apiVersion: v1  # Especifica a versão da API Kubernetes
+kind: Service  # Define que estamos criando um serviço Kubernetes
+metadata:  # Metadados do serviço, como nome e rótulos
+  name: example-lb  # Nome do serviço
+spec:  # Especificações do serviço, como seletores, portas e endereços IP
+  selector:  # Seletores de rótulo que apontam para os pods correspondentes
+    app: portal-noticias
+  ports:  # Lista de portas que o serviço expõe
+    - protocol: "TCP"
+      # Porta acessível dentro do cluster
+      port: 8081
+      # Porta para encaminhar para dentro do pod
+      targetPort: 80
+      # Porta acessível fora do cluster
+      nodePort: 30002
+  type: LoadBalancer  # Tipo de serviço, neste caso, um balanceador de carga
+  externalIPs:  # Lista de endereços IP externos atribuídos ao serviço
+    - 192.168.49.2
