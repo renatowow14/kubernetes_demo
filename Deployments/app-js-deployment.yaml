@@ -27,6 +27,7 @@ spec:
       containers:
         - name: app-js-container
           image: renatogomessilverio/kubernetes_demo:appv1
+          imagePullPolicy: Always
           env:
             - name: POSTGRES_USER
               valueFrom:
