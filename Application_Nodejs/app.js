@@ -78,9 +78,9 @@ const server = http.createServer(async (req, res) => {
                 statusElement.innerHTML = 'Erro ao conectar ao banco de dados';
               });
           }
-          setTimeout(function() {
-            location.reload();
-          }, 2000);
+            setTimeout(function() {
+                location.reload();
+            }, 2000);
         </script>
     </body>
 </html>`;
