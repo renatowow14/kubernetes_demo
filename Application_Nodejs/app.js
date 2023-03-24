@@ -32,6 +32,9 @@ Object.keys(networkInterfaces).forEach(interfaceName => {
 });
 
 const server = http.createServer(async (req, res) => {
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
     res.writeHead(200, { 'Content-Type': 'text/html' });
     const colorBackground = 'black'
     const textColor = 'white'
