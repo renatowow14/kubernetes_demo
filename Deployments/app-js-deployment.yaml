@@ -1,0 +1,85 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-pv-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-js-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-js
+  template:
+    metadata:
+      name: app-js
+      labels:
+        app: app-js
+    spec:
+      containers:
+        - name: app-js-container
+          image: renatogomessilverio/kubernetes_demo:appv1
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_HOST
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_DB
+            - name: POSTGRES_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_PORT
+          volumeMounts:
+            - mountPath: "/storage"
+              name: my-volume
+          ports:
+            - containerPort: 8080
+              name: "http-server"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            periodSeconds: 10
+            failureThreshold: 3
+            initialDelaySeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            periodSeconds: 10
+            failureThreshold: 5
+            initialDelaySeconds: 3
+          resources:
+            requests:
+              cpu: 10m
+      # Define o PVC que vai ser vinculado ao storageclass standard (default) que ja vem no cluster,
+      # O mesmo ira criar um PV e associar ao PVC logo em seguida associar aos PODS do deployment
+      # Por padrao o minikube ja vem com um storageclass configurado ao iniciar o cluster.
+      volumes:
+        - name: my-volume
+          persistentVolumeClaim:
+            claimName: my-pv-claim

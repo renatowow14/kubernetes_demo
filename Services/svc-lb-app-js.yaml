@@ -4,11 +4,11 @@ metadata: # Metadados do serviço, como nome e rótulos
   name: example-lb # Nome do serviço
 spec: # Especificações do serviço, como seletores, portas e endereços IP
   selector: # Seletores de rótulo que apontam para os pods correspondentes
-    app: portal-noticias
+    app: app-js
   ports: # Lista de portas que o serviço expõe
     - protocol: "TCP"
-      port: 8081 # Porta acessível dentro do cluster
-      targetPort: 80 # Porta para encaminhar para dentro do pod
+      port: 8080 # Porta acessível dentro do cluster
+      targetPort: 8080 # Porta para encaminhar para dentro do pod
       nodePort: 30002 # Porta acessível fora do cluster
   type: LoadBalancer # Tipo de serviço, neste caso, um balanceador de carga
   externalIPs: # Lista de endereços IP externos atribuídos ao serviço

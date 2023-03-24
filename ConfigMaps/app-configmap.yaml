@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config
+data:
+  POSTGRES_HOST: svc-db-app-js
+  POSTGRES_DB: postgresdb
+  POSTGRES_PORT: "5432"

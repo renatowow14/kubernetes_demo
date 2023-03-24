@@ -1,8 +1,10 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: db-configmap
+  name: postgres-secret
+  labels:
+    app: postgres
 data:
-  MYSQL_ROOT_PASSWORD: q1w2e3r4
-  MYSQL_DATABASE: empresa
-  MYSQL_PASSWORD: q1w2e3r4
+  POSTGRES_DB: postgresdb
+  POSTGRES_USER: admin
+  POSTGRES_PASSWORD: teste
