@@ -1,7 +1,7 @@
 apiVersion: v1 # Especifica a versão da API Kubernetes
 kind: Service # Define que estamos criando um serviço Kubernetes
 metadata: # Metadados do serviço, como nome e rótulos
-  name: example-lb # Nome do serviço
+  name: svc-lb-app-js # Nome do serviço
 spec: # Especificações do serviço, como seletores, portas e endereços IP
   selector: # Seletores de rótulo que apontam para os pods correspondentes
     app: app-js
@@ -9,7 +9,6 @@ spec: # Especificações do serviço, como seletores, portas e endereços IP
     - protocol: "TCP"
       port: 8080 # Porta acessível dentro do cluster
       targetPort: 8080 # Porta para encaminhar para dentro do pod
-      nodePort: 30002 # Porta acessível fora do cluster
   type: LoadBalancer # Tipo de serviço, neste caso, um balanceador de carga
   externalIPs: # Lista de endereços IP externos atribuídos ao serviço
     - 192.168.49.2
